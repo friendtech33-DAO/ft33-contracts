@@ -6,13 +6,13 @@ async function main() {
     const treasuryAddress = (await get('OlympusTreasury')).address;
     const distributorAddress = (await get('Distributor')).address;
     const fraxBondDepositoryAddress = (await get('FraxBondDepository')).address;
+    const wftmBondDepositoryAddress = (await get('WftmBondDepository')).address;
 
     console.log(`deployer is ${deployer}`);
     console.log(`Treasury address is ${treasuryAddress}`);
     console.log(`Distributor address is ${distributorAddress}`);
     console.log(`FRAX bond depository address is ${fraxBondDepositoryAddress}`);
 
-    const wftmBondDepositoryAddress = (await get('WftmBondDepository')).address;
     const zeroAddress = config.contractAddresses.zero;
     const treasury = (
       await ethers.getContractFactory('OlympusTreasury')
@@ -27,7 +27,6 @@ async function main() {
     console.log(`fraxBondDepositoryToggleBlockNumber is ${fraxBondDepositoryToggleBlockNumber}`);
     console.log(`wftmBondDepositoryToggleBlockNumber is ${wftmBondDepositoryToggleBlockNumber}`);
 
-    // TODO: && > wftmBondDepositoryToggleBlockNumber
     if (
       currentBlockNumber > fraxBondDepositoryToggleBlockNumber &&
       currentBlockNumber > wftmBondDepositoryToggleBlockNumber
