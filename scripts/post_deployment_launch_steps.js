@@ -39,6 +39,10 @@ async function main() {
     // approve deployer as the reserve and liquidity token depositor
     const deployerReserveDepositorToggleBlockNumber = await treasury.reserveDepositorQueue(deployer);
     const deployerLiquidityDepositorToggleBlockNumber = await treasury.LiquidityDepositorQueue(deployer);
+
+    console.log(`deployerReserveDepositorToggleBlockNumber is ${deployerReserveDepositorToggleBlockNumber}`);
+    console.log(`deployerLiquidityDepositorToggleBlockNumber is ${deployerLiquidityDepositorToggleBlockNumber}`);
+
     if (
       currentBlockNumber > deployerReserveDepositorToggleBlockNumber &&
       currentBlockNumber > deployerLiquidityDepositorToggleBlockNumber
@@ -49,6 +53,7 @@ async function main() {
 
     // approve staking distributor as the reward manager
     const distributorRewardManagerToggleBlockNumber = await treasury.rewardManagerQueue(distributorAddress);
+    console.log(`distributorRewardManagerToggleBlockNumber is ${distributorRewardManagerToggleBlockNumber}`);
     if (currentBlockNumber > distributorRewardManagerToggleBlockNumber) {
       await treasury.toggle('8', distributorAddress, zeroAddress);
     }
