@@ -1,12 +1,22 @@
 require("@nomiclabs/hardhat-waffle");
 require("hardhat-deploy");
 
+require("dotenv").config();
+const { TESTNET_PRIVATE_KEY } = process.env;
+
 module.exports = {
   solidity: "0.7.5",
   namedAccounts: {
     deployer: {
       default: 0,
-      // TODO: Fantom testnet and mainnet
+    },
+  },
+  networks: {
+    fantomTestnet: {
+      chainId: 4002,
+      accounts: [
+        { privateKey: TESTNET_PRIVATE_KEY },
+      ],
     },
   },
   protocolParameters: {
