@@ -1,8 +1,9 @@
 require("@nomiclabs/hardhat-waffle");
 require("hardhat-deploy");
+require("@nomiclabs/hardhat-etherscan");
 
 require("dotenv").config();
-const { MAINNET_PRIVATE_KEY, TESTNET_PRIVATE_KEY } = process.env;
+const { MAINNET_PRIVATE_KEY, TESTNET_PRIVATE_KEY, FTMSCAN_API_KEY } = process.env;
 
 module.exports = {
   solidity: "0.7.5",
@@ -62,5 +63,8 @@ module.exports = {
       priceFeed: '0xf4766552D15AE4d256Ad41B6cf2933482B0680dc',
     },
     zero: '0x0000000000000000000000000000000000000000',
+  },
+  etherscan: {
+    apiKey: FTMSCAN_API_KEY,
   },
 };
