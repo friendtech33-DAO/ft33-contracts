@@ -1,4 +1,5 @@
 const { config, getChainId, ethers } = require("hardhat");
+const getTokenAddress = require("../utils/getTokenAddress");
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy, get } = deployments;
@@ -11,17 +12,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const daoAddress = config.contractAddresses[chainId].dao;
   const priceFeedAddress = config.contractAddresses[chainId].priceFeed;
 
-  let wftmAddress;
-  // TODO: move it to config
-  switch(chainId) {
-    case '250':
-      wftmAddress = config.contractAddresses[chainId].wrappedToken;
-      break;
-    default:
-      const wrappedToken = await get('WrappedToken');
-      wftmAddress = wrappedToken.address;
-      break;
-  }
+  const wftmAddress = await getTokenAddress({ chainId, tokenName: 'wrappedToken', get });
 
   // NOTE: https://hardhat.org/guides/compile-contracts.html#reading-artifacts
   const contractPath = 'contracts/wETHBondDepository.sol:OlympusBondDepository';

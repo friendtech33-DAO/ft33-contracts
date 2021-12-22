@@ -1,4 +1,5 @@
 const { config, ethers } = require("hardhat");
+const getTokenAddress = require("../utils/getTokenAddress");
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const chainId = await getChainId();
@@ -7,20 +8,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   const brickArtifact = await get('OlympusERC20Token');
 
-  let fraxAddress, wrappedTokenAddress;
-  // TODO: move it to config
-  switch(chainId) {
-    case '250':
-      fraxAddress = config.contractAddresses[chainId].frax;
-      wrappedTokenAddress = config.contractAddresses[chainId].wrappedToken;
-      break;
-    default:
-      const frax = await get('FRAX');
-      fraxAddress = frax.address;
-      const wrappedToken = await get('WrappedToken');
-      wrappedTokenAddress = wrappedToken.address;
-      break;
-  }
+  const fraxAddress = await getTokenAddress({ chainId, tokenName: 'frax', get });
+  const wrappedTokenAddress = await getTokenAddress({ chainId, tokenName: 'wrappedToken', get });
 
   const blocksNeededForQueue = config.protocolParameters[chainId].blocksNeededForQueue;
 

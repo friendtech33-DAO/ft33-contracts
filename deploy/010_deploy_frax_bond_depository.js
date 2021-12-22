@@ -1,4 +1,5 @@
 const { config, getChainId, ethers } = require("hardhat");
+const getTokenAddress = require("../utils/getTokenAddress");
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy, get } = deployments;
@@ -12,17 +13,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   // NOTE: Only LP bond requires bond calculator
   const bondCalculatorAddress = config.contractAddresses.zero;
 
-  let fraxAddress;
-  // TODO: move it to config
-  switch(chainId) {
-    case '250':
-      fraxAddress = config.contractAddresses[chainId].frax;
-      break;
-    default:
-      const frax = await get('FRAX');
-      fraxAddress = frax.address;
-      break;
-  }
+  const fraxAddress = await getTokenAddress({ chainId, tokenName: 'frax', get });
 
   // NOTE: https://hardhat.org/guides/compile-contracts.html#reading-artifacts
   const contractPath = 'contracts/BondDepository.sol:OlympusBondDepository';
