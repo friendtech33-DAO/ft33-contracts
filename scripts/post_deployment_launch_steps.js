@@ -57,6 +57,9 @@ async function main() {
     if (currentBlockNumber > distributorRewardManagerToggleBlockNumber) {
       await treasury.toggle('8', distributorAddress, zeroAddress);
     }
+
+    const sBrickAddress = (await get('sOlympus')).address;
+    await treasury.toggle('9', sBrickAddress, zeroAddress);
 }
 
 main()
