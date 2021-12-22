@@ -1,4 +1,4 @@
-const { config, ethers, getNamedAccounts, deployments: { get } } = require("hardhat");
+const { ethers, deployments: { get } } = require("hardhat");
 
 async function main() {
   // TODO: fill it
