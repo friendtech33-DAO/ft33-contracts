@@ -20,16 +20,26 @@ Local Setup Steps:
 
 ## Mainnet Contracts & Addresses
 
+BRICK 0x80FAcC2c14E6F1B31A952C43264b333C2788f30f
+Mock FRAX 0x9e008Cc93b4D2179dB48Fe5A0fed6B484aFf1739
+Mock WFTM 0x0Ae825CD631d5b59D56ACc635f1599ebb3390A6d
+BondingCalculator 0x17FC72CA16208b085613B0CA120914c8D546A764
+Treasury 0xe8e51612b1606c410E1240b80A5b3F2046ce7006
+Distributor 0xf0424efD7295e0b81f143cA23eFBA3b476ed9C1e
+sBRICK 0x9f6fBD3ac94BA9c823c43F2Ae0dcA80A4783e3b5
+Staking 0x6137c9684283D515DE179cb897a5d0345C61488F
+StakingWarmup 0xB8408Fc5f5aE1980a6af4CaA6118E98F7c328A5d
+StakingHelper 0x2663a2E5f4DF96b79377DA6B15e448b012838Cb8
+FraxBondDepository 0x38E4560A1DB2DAe89F78F98b308eE6F890b27712
+WftmBondDepository 0x1e0AD0F8DDFF84FDc938373E9aa66b8d994ea066
+
 |Contract       | Addresss                                                                                                            | Notes   |
 |:-------------:|:-------------------------------------------------------------------------------------------------------------------:|-------|
-|OHM            |[0x383518188c0c6d7730d91b2c03a03c837814a899](https://etherscan.io/address/0x383518188c0c6d7730d91b2c03a03c837814a899)| Main Token Contract|
-|sOHM           |[0x31932e6e45012476ba3a3a4953cba62aee77fbbe](https://etherscan.io/address/0x31932e6e45012476ba3a3a4953cba62aee77fbbe)| Staked Ohm|
-|Treasury       |[0x31F8Cc382c9898b273eff4e0b7626a6987C846E8](https://etherscan.io/address/0x31F8Cc382c9898b273eff4e0b7626a6987C846E8)| Olympus Treasury holds all the assets        |
-|OlympusStaking |[0xfd31c7d00ca47653c6ce64af53c1571f9c36566a](https://etherscan.io/address/0xfd31c7d00ca47653c6ce64af53c1571f9c36566a)| Main Staking contract responsible for calling rebases every 2200 blocks|
+|fBRICK            |[0x80FAcC2c14E6F1B31A952C43264b333C2788f30f](https://testnet.ftmscan.com/address/0x80FAcC2c14E6F1B31A952C43264b333C2788f30f)| Main Token Contract|
+|spBRICK           |[0x9f6fBD3ac94BA9c823c43F2Ae0dcA80A4783e3b5](https://testnet.ftmscan.com/address/0x9f6fBD3ac94BA9c823c43F2Ae0dcA80A4783e3b5)| Staked fOHM|
+|Treasury       |[0xe8e51612b1606c410E1240b80A5b3F2046ce7006](https://testnet.ftmscan.com/address/0xe8e51612b1606c410E1240b80A5b3F2046ce7006)| Olympus Treasury holds all the assets        |
+|OlympusStaking |[0x6137c9684283D515DE179cb897a5d0345C61488F](https://etherscan.io/address/0x6137c9684283D515DE179cb897a5d0345C61488F)| Main Staking contract responsible for calling rebases every 2200 blocks|
 |StakingHelper  |[0xc8c436271f9a6f10a5b80c8b8ed7d0e8f37a612d](https://etherscan.io/address/0xc8c436271f9a6f10a5b80c8b8ed7d0e8f37a612d)| Helper Contract to Stake with 0 warmup |
-|Aave Allocator |[0x0e1177e47151Be72e5992E0975000E73Ab5fd9D4](https://etherscan.io/address/0x0e1177e47151Be72e5992E0975000E73Ab5fd9D4)| Sends DAI from the treasury to Aave (via deposit) in exchange for aDAI and holds it. See [Allocator Guide](#allocator-guide)|
-|Convex Allocator |[0x3dF5A355457dB3A4B5C744B8623A7721BF56dF78](https://etherscan.io/address/0x3dF5A355457dB3A4B5C744B8623A7721BF56dF78)| Sends FRAX from the treasury to Convex and accumulates trading fees, CRV and CVX. See [Allocator Guide](#allocator-guide)|
-|Onsen Allocator |[0x0316508a1b5abf1CAe42912Dc2C8B9774b682fFC](https://etherscan.io/address/0x0316508a1b5abf1CAe42912Dc2C8B9774b682fFC)| Sends OHM-DAI SLP from the treasury to the Sushi Onsen pool, accumulating SUSHI and xSUSHI. See [Allocator Guide](#allocator-guide)|
 |DAO            |[0x245cc372C84B3645Bf0Ffe6538620B04a217988B](https://etherscan.io/address/0x245cc372C84B3645Bf0Ffe6538620B04a217988B)|Storage Wallet for DAO under MS |
 |Staking Warm Up|[0x2882A5CD82AC49e06620382660f5ed932607c5f1](https://etherscan.io/address/0x2882A5CD82AC49e06620382660f5ed932607c5f1)| Instructs the Staking contract when a user can claim sOHM |
 
