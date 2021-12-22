@@ -52,7 +52,7 @@ module.exports = {
       priceFeed: '0xf4766552D15AE4d256Ad41B6cf2933482B0680dc',
     },
     '4002': {
-      dao: '0xba5c251Cffc942C8e16e2315024c7D4B7D76Bea8',
+      dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address
       priceFeed: '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D',
     },
     '31337': {
