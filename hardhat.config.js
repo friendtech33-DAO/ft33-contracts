@@ -14,12 +14,14 @@ module.exports = {
   networks: {
     fantomMainnet: {
       chainId: 250,
+      url: "https://rpc.ftm.tools",
       accounts: [
         { privateKey: MAINNET_PRIVATE_KEY },
       ]
     },
     fantomTestnet: {
       chainId: 4002,
+      url: "https://rpc.testnet.fantom.network",
       accounts: [
         { privateKey: TESTNET_PRIVATE_KEY },
       ],
