@@ -7,4 +7,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log: true,
   });
 };
-module.exports.tags = ['Brick', 'AllEnvironments'];
+module.exports.tags = ['fBrick', 'AllEnvironments'];

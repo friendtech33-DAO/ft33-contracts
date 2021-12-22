@@ -122,7 +122,7 @@ library EnumerableSet {
     bytes32 existingValue_ = _at( set_, index_ );
     set_._values[index_] = valueToInsert_;
     return _add( set_, existingValue_);
-  } 
+  }
 
   struct Bytes4Set {
     Set _inner;
@@ -603,7 +603,7 @@ abstract contract ERC20 is IERC20 {
 
   // TODO comment actual hash value.
   bytes32 constant private ERC20TOKEN_ERC1820_INTERFACE_ID = keccak256( "ERC20Token" );
-    
+
   // Present in ERC777
   mapping (address => uint256) internal _balances;
 
@@ -615,10 +615,10 @@ abstract contract ERC20 is IERC20 {
 
   // Present in ERC777
   string internal _name;
-    
+
   // Present in ERC777
   string internal _symbol;
-    
+
   // Present in ERC777
   uint8 internal _decimals;
 
@@ -812,12 +812,12 @@ interface IOwnable {
   function owner() external view returns (address);
 
   function renounceOwnership() external;
-  
+
   function transferOwnership( address newOwner_ ) external;
 }
 
 contract Ownable is IOwnable {
-    
+
   address internal _owner;
 
   event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -849,7 +849,7 @@ contract Ownable is IOwnable {
 }
 
 contract VaultOwned is Ownable {
-    
+
   address internal _vault;
 
   function setVault( address vault_ ) external onlyOwner() returns ( bool ) {
@@ -873,7 +873,7 @@ contract OlympusERC20Token is ERC20Permit, VaultOwned {
 
     using SafeMath for uint256;
 
-    constructor() ERC20("Brick", "BRICK", 9) {
+    constructor() ERC20("fBrick", "fBRICK", 9) {
     }
 
     function mint(address account_, uint256 amount_) external onlyVault() {
@@ -883,7 +883,7 @@ contract OlympusERC20Token is ERC20Permit, VaultOwned {
     function burn(uint256 amount) public virtual {
         _burn(msg.sender, amount);
     }
-     
+
     function burnFrom(address account_, uint256 amount_) public virtual {
         _burnFrom(account_, amount_);
     }

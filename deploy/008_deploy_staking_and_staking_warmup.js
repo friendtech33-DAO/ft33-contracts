@@ -5,7 +5,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deployer } = await getNamedAccounts();
 
   const brickArtifact = await get('OlympusERC20Token');
-  const sBrickArtifact = await get('sOlympus');
+  const sfBrickArtifact = await get('sOlympus');
   const distributorArtifact = await get('Distributor');
   const chainId = await getChainId();
   const epochLength = config.protocolParameters[chainId].epochLength;
@@ -23,7 +23,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     from: deployer,
     args: [
       brickArtifact.address,
-      sBrickArtifact.address,
+      sfBrickArtifact.address,
       epochLength,
       firstEpochNumber,
       firstEpochTime,
@@ -36,7 +36,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     from: deployer,
     args: [
       stakingDeployment.address,
-      sBrickArtifact.address,
+      sfBrickArtifact.address,
     ],
     log: true,
   });
