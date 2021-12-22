@@ -17,7 +17,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const firstEpochTime = await distributor.nextEpochTime();
   // TODO: What should firstEpochNumber be?
   // I guess it doesn't matter what it is as it is only used for tracking warmup period.
-  const firstEpochNumber = 0;
+  // NOTE: ok so it has to be at least 1, otherwise claim doesn't work.
+  const firstEpochNumber = 1;
 
   const stakingDeployment = await deploy('OlympusStaking', {
     from: deployer,
