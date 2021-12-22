@@ -37,7 +37,7 @@ module.exports = {
       epochLength: 28800, // seconds
     },
     '4002': {
-      blocksNeededForQueue: 6600,
+      blocksNeededForQueue: 0,
       epochLength: 28800, // seconds
     },
     '31337': {
