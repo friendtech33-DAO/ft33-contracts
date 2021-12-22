@@ -12,6 +12,7 @@ async function main() {
     console.log(`Treasury address is ${treasuryAddress}`);
     console.log(`Distributor address is ${distributorAddress}`);
     console.log(`FRAX bond depository address is ${fraxBondDepositoryAddress}`);
+    console.log(`WFTM bond depository address is ${wftmBondDepositoryAddress}`);
 
     const zeroAddress = config.contractAddresses.zero;
     const treasury = (
