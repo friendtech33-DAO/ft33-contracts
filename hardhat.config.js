@@ -12,14 +12,14 @@ module.exports = {
     },
   },
   networks: {
-    fantomMainnet: {
+    opera: {
       chainId: 250,
       url: "https://rpc.ftm.tools",
       accounts: [
         MAINNET_PRIVATE_KEY,
       ]
     },
-    fantomTestnet: {
+    ftmTestnet: {
       chainId: 4002,
       url: "https://rpc.testnet.fantom.network",
       accounts: [
