@@ -1,9 +1,12 @@
-const { ethers, deployments: { get } } = require("hardhat");
+const { ethers, deployments: { get }, getChainId } = require("hardhat");
+const getTokenAddress = require("../utils/getTokenAddress");
 
 async function main() {
-  // TODO: fill it
-  const fraxAddress = '';
-  const frax = (await ethers.getContractFactory('ERC20')).attach(fraxAddress);
+  const chainId = await getChainId();
+  const fraxAddress = await getTokenAddress({ chainId, get, tokenName: 'frax' });
+  const frax = (
+    await ethers.getContractFactory('@openzeppelin/contracts/token/ERC20/ERC20.sol:ERC20')
+  ).attach(fraxAddress);
   const treasuryAddress = (await get('OlympusTreasury')).address;
 
   const treasury = (
@@ -11,7 +14,9 @@ async function main() {
   ).attach(treasuryAddress);
 
   // TODO: decide how much to mint and how much is profit
-  const transferAmount = ethers.utils.parseEther('');
+  // const transferAmount = ethers.utils.parseUnits('1000000', 18);
+  // const profit = ethers.utils.parseUnits('500000', 9);
+  const transferAmount = 0;
   const profit = 0;
   await frax.approve(treasury.address, transferAmount);
   await treasury.deposit(transferAmount, fraxAddress, profit);
