@@ -21,8 +21,8 @@ async function main() {
 
     const currentBlockNumber = await ethers.provider.getBlockNumber();
 
-    const fraxBondDepositoryToggleBlockNumber = await treasury.reserveTokenQueue(fraxBondDepositoryAddress);
-    const wftmBondDepositoryToggleBlockNumber = await treasury.reserveTokenQueue(wftmBondDepositoryAddress);
+    const fraxBondDepositoryToggleBlockNumber = await treasury.reserveDepositorQueue(fraxBondDepositoryAddress);
+    const wftmBondDepositoryToggleBlockNumber = await treasury.reserveDepositorQueue(wftmBondDepositoryAddress);
 
     console.log(`currentBlockNumber is ${currentBlockNumber}`);
     console.log(`fraxBondDepositoryToggleBlockNumber is ${fraxBondDepositoryToggleBlockNumber}`);
