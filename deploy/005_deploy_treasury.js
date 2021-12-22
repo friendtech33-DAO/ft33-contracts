@@ -22,11 +22,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
       break;
   }
 
-  // NOTE: Average block time in Ethereum is ~13 seconds and
-  // Olympus's treasury's blocksNeededForQueue is 6,000.
-  // Fantom's average block time is ~0.9 seconds so I make it
-  // 6,000 / 0.9 which is approximately 6,600 blocks.
-  const blocksNeededForQueue = 6600;
+  const blocksNeededForQueue = config.protocolParameters[chainId].blocksNeededForQueue;
 
   const deployment = await deploy('OlympusTreasury', {
     from: deployer,

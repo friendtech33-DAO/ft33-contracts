@@ -27,12 +27,19 @@ module.exports = {
   },
   protocolParameters: {
     '250': {
+      // NOTE: Average block time in Ethereum is ~13 seconds and
+      // Olympus's treasury's blocksNeededForQueue is 6,000.
+      // Fantom's average block time is ~0.9 seconds so I make it
+      // 6,000 / 0.9 which is approximately 6,600 blocks.
+      blocksNeededForQueue: 6600,
       epochLength: 28800, // seconds
     },
     '4002': {
+      blocksNeededForQueue: 6600,
       epochLength: 28800, // seconds
     },
     '31337': {
+      blocksNeededForQueue: 0,
       epochLength: 28800, // seconds
     },
   },
