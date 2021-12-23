@@ -18,7 +18,7 @@ Local Setup Steps:
 ## 🤨 How it all works
 ![High Level Contract Interactions](./docs/box-diagram.png)
 
-## Mainnet Contracts & Addresses
+## FTM Testnet Contracts & Addresses
 
 - BRICK 0x80FAcC2c14E6F1B31A952C43264b333C2788f30f
 - Mock FRAX 0x9e008Cc93b4D2179dB48Fe5A0fed6B484aFf1739
