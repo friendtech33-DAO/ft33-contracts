@@ -26,7 +26,7 @@ async function main() {
     const distributor = (
       await ethers.getContractFactory('Distributor')
     ).attach(distributorAddress);
-    await distributor.pushManagement(multisig);
+    await distributor.pushPolicy(multisig);
 
     const fraxBondDepositoryAddress = (await get('FraxBondDepository')).address;
     const fraxBondDepository = (
