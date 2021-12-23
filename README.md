@@ -1,4 +1,4 @@
-# Ω Olympus Smart Contracts
+# 🧱 GOD MODE Smart Contracts
 
 
 ##  🔧 Setting up Local Development
