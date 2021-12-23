@@ -15,8 +15,8 @@ async function main() {
     const sfBrickAddress = (await get('sOlympus')).address;
     const sfBrick = (await ethers.getContractFactory('sOlympus')).attach(sfBrickAddress);
 
-    const balance = await sfBrick.balanceOf(deployer.address);
-    console.log(`${deployer.adderss} has ${ethers.utils.formatEther(balance)} sfBrick`);
+    const balance = await sfBrick.balanceOf(deployer);
+    console.log(`${deployer.adderss} has ${ethers.utils.formatUnits(balance, 9)} sfBrick`);
 }
 
 main()
