@@ -8,7 +8,10 @@ async function main() {
     const brick = (await ethers.getContractFactory('OlympusERC20Token')).attach(brickAddress);
     const stakingHelperAddress = (await get('StakingHelper')).address;
     const stakingHelper = (await ethers.getContractFactory('StakingHelper')).attach(stakingHelperAddress);
-    const stakeAmount = ethers.utils.parseUnits('500000', 9);
+
+    const stakeAmount = await brick.balanceOf(deployer);
+    console.log(`deployer has ${ethers.utils.formatUnits(stakeAmount, 9)}`);
+
     await brick.approve(stakingHelper.address, stakeAmount);
     await stakingHelper.stake(stakeAmount);
 
