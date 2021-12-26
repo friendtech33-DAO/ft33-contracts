@@ -754,7 +754,7 @@ contract wOHM is ERC20 {
     address public immutable OHM;
     address public immutable sOHM;
 
-    constructor( address _staking, address _OHM, address _sOHM ) ERC20( 'Wrapped sOHM', 'wsOHM' ) {
+    constructor( address _staking, address _OHM, address _sOHM ) ERC20( 'Wrapped sfBRICK', 'wsfBRICK' ) {
         require( _staking != address(0) );
         staking = _staking;
         require( _OHM != address(0) );
@@ -786,7 +786,7 @@ contract wOHM is ERC20 {
      */
     function unwrapToOHM( uint _amount ) external returns ( uint ) {
         _burn( msg.sender, _amount );
-        
+
         uint value = sOHMValue( _amount );
         IERC20( sOHM ).approve( staking, value ); // unstake sOHM for OHM
         IStaking( staking ).unstake( value, address(this) );
@@ -802,7 +802,7 @@ contract wOHM is ERC20 {
      */
     function wrapFromsOHM( uint _amount ) external returns ( uint ) {
         IERC20( sOHM ).transferFrom( msg.sender, address(this), _amount );
-        
+
         uint value = wOHMValue( _amount );
         _mint( msg.sender, value );
         return value;
