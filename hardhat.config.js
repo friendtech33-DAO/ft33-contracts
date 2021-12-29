@@ -48,8 +48,7 @@ module.exports = {
   },
   contractAddresses: {
     '250': {
-      // TODO: This is our multi-sig (for now).
-      dao: '0xba5c251Cffc942C8e16e2315024c7D4B7D76Bea8',
+      dao: '0x71Aa3467e12E2b562a0E792D831933998490C998',
       frax: '0xaf319E5789945197e365E7f7fbFc56B130523B33',
       wrappedToken: '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83', // WFTM
       priceFeed: '0xf4766552D15AE4d256Ad41B6cf2933482B0680dc',
@@ -59,7 +58,7 @@ module.exports = {
       priceFeed: '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D',
     },
     '31337': {
-      dao: '0xba5c251Cffc942C8e16e2315024c7D4B7D76Bea8',
+      dao: '0x71Aa3467e12E2b562a0E792D831933998490C998',
       priceFeed: '0xf4766552D15AE4d256Ad41B6cf2933482B0680dc',
     },
     zero: '0x0000000000000000000000000000000000000000',
