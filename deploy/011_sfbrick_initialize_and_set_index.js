@@ -18,4 +18,4 @@ module.exports = async ({ deployments }) => {
   const index = 1000000000;
   await sfBrick.setIndex(index);
 };
-module.exports.tags = ['sfBRICK', 'AllEnvironments'];
+module.exports.tags = ['sBRICK', 'AllEnvironments'];

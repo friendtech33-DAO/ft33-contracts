@@ -1,3 +1,5 @@
+const { getChainId } = require("hardhat");
+
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy, get } = deployments;
   const { deployer } = await getNamedAccounts();
@@ -6,14 +8,19 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const brickArtifact = await get('OlympusERC20Token');
   const sfBrickArtifact = await get('sOlympus');
 
+  const chainId = await getChainId();
+  const { name, symbol } = config.protocolParameters[chainId].wsbrick;
+
   await deploy('wOHM', {
     from: deployer,
     args: [
       stakingArtifact.address,
       brickArtifact.address,
-      sfBrickArtifact.address
+      sfBrickArtifact.address,
+      name,
+      symbol,
     ],
     log: true,
   });
 };
-module.exports.tags = ['wsfBRICK', 'AllEnvironments'];
+module.exports.tags = ['wsBRICK', 'AllEnvironments'];

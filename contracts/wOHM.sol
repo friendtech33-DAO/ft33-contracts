@@ -754,7 +754,7 @@ contract wOHM is ERC20 {
     address public immutable OHM;
     address public immutable sOHM;
 
-    constructor( address _staking, address _OHM, address _sOHM ) ERC20( 'Wrapped sfBRICK', 'wsfBRICK' ) {
+    constructor( address _staking, address _OHM, address _sOHM, string memory _name, string memory _symbol ) ERC20( _name, _symbol ) {
         require( _staking != address(0) );
         staking = _staking;
         require( _OHM != address(0) );

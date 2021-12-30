@@ -1031,7 +1031,7 @@ contract sOlympus is ERC20Permit, Ownable {
 
     mapping ( address => mapping ( address => uint256 ) ) private _allowedValue;
 
-    constructor() ERC20("Staked fBrick", "sfBRICK", 9) ERC20Permit() {
+    constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol, 9) ERC20Permit() {
         initializer = msg.sender;
         _totalSupply = INITIAL_FRAGMENTS_SUPPLY;
         _gonsPerFragment = TOTAL_GONS.div(_totalSupply);

@@ -1,15 +1,16 @@
-const { ethers } = require("hardhat");
+const { config } = require("hardhat");
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const chainId = await getChainId();
-  // NOTE: If it is hardhat or Fantom testnet
-  if (chainId === '31337' || chainId === '4002') {
+  if (chainId === '31337' || chainId === '4002' || chainId === '4') {
     const { deploy } = deployments;
     const { deployer } = await getNamedAccounts();
 
-    const deployment = await deploy('WrappedToken', {
+    const { name, symbol } = config.protocolParameters[chainId].wrappedToken;
+
+    await deploy('WrappedToken', {
       from: deployer,
-      args: ["Wrapped Fantom", "WFTM"],
+      args: [name, symbol],
       log: true,
     });
   }

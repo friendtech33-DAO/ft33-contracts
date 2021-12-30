@@ -6,13 +6,13 @@ async function main() {
     const treasuryAddress = (await get('OlympusTreasury')).address;
     const distributorAddress = (await get('Distributor')).address;
     const fraxBondDepositoryAddress = (await get('FraxBondDepository')).address;
-    const wftmBondDepositoryAddress = (await get('WftmBondDepository')).address;
+    const wrappedTokenBondDepositoryAddress = (await get('WrappedTokenBondDepository')).address;
 
     console.log(`deployer is ${deployer}`);
     console.log(`Treasury address is ${treasuryAddress}`);
     console.log(`Distributor address is ${distributorAddress}`);
     console.log(`FRAX bond depository address is ${fraxBondDepositoryAddress}`);
-    console.log(`WFTM bond depository address is ${wftmBondDepositoryAddress}`);
+    console.log(`Wrapped Token bond depository address is ${wrappedTokenBondDepositoryAddress}`);
 
     const zeroAddress = config.contractAddresses.zero;
     const treasury = (
@@ -22,18 +22,18 @@ async function main() {
     const currentBlockNumber = await ethers.provider.getBlockNumber();
 
     const fraxBondDepositoryToggleBlockNumber = await treasury.reserveDepositorQueue(fraxBondDepositoryAddress);
-    const wftmBondDepositoryToggleBlockNumber = await treasury.reserveDepositorQueue(wftmBondDepositoryAddress);
+    const wrappedTokenBondDepositoryToggleBlockNumber = await treasury.reserveDepositorQueue(wrappedTokenBondDepositoryAddress);
 
     console.log(`currentBlockNumber is ${currentBlockNumber}`);
     console.log(`fraxBondDepositoryToggleBlockNumber is ${fraxBondDepositoryToggleBlockNumber}`);
-    console.log(`wftmBondDepositoryToggleBlockNumber is ${wftmBondDepositoryToggleBlockNumber}`);
+    console.log(`wrappedTokenBondDepositoryToggleBlockNumber is ${wrappedTokenBondDepositoryToggleBlockNumber}`);
 
     if (
       currentBlockNumber > fraxBondDepositoryToggleBlockNumber &&
-      currentBlockNumber > wftmBondDepositoryToggleBlockNumber
+      currentBlockNumber > wrappedTokenBondDepositoryToggleBlockNumber
     ) {
       await treasury.toggle('0', fraxBondDepositoryAddress, zeroAddress);
-      await treasury.toggle('0', wftmBondDepositoryAddress, zeroAddress);
+      await treasury.toggle('0', wrappedTokenBondDepositoryAddress, zeroAddress);
     }
 
     // approve deployer as the reserve and liquidity token depositor

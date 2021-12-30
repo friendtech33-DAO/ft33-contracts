@@ -19,7 +19,7 @@ async function main() {
     const sfBrick = (await ethers.getContractFactory('sOlympus')).attach(sfBrickAddress);
 
     const balance = await sfBrick.balanceOf(deployer);
-    console.log(`${deployer.adderss} has ${ethers.utils.formatUnits(balance, 9)} sfBrick`);
+    console.log(`${deployer} has ${ethers.utils.formatUnits(balance, 9)} staked Brick`);
 }
 
 main()

@@ -3,7 +3,12 @@ require("hardhat-deploy");
 require("@nomiclabs/hardhat-etherscan");
 
 require("dotenv").config();
-const { MAINNET_PRIVATE_KEY, TESTNET_PRIVATE_KEY, FTMSCAN_API_KEY } = process.env;
+const {
+  MAINNET_PRIVATE_KEY,
+  TESTNET_PRIVATE_KEY,
+  FTMSCAN_API_KEY,
+  RINKEBY_ALCHEMY_API,
+} = process.env;
 
 module.exports = {
   solidity: "0.7.5",
@@ -19,6 +24,13 @@ module.exports = {
       accounts: [
         MAINNET_PRIVATE_KEY,
       ]
+    },
+    rinkeby: {
+      chainId: 4,
+      url: RINKEBY_ALCHEMY_API,
+      accounts: [
+        TESTNET_PRIVATE_KEY,
+      ],
     },
     ftmTestnet: {
       chainId: 4002,
@@ -36,14 +48,78 @@ module.exports = {
       // 6,000 / 0.9 which is approximately 6,600 blocks.
       blocksNeededForQueue: 6600,
       epochLength: 28800, // seconds
+      brick: {
+        name: 'fBrick',
+        symbol: 'fBRICK',
+      },
+      sbrick: {
+        name: 'Staked fBrick',
+        symbol: 'sfBRICK',
+      },
+      wsbrick: {
+        name: 'Wrapped sfBRICK',
+        symbol: 'wsfBRICK',
+      },
+    },
+    '4': {
+      blocksNeededForQueue: 0,
+      epochLength: 28800, // seconds
+      wrappedToken: {
+        name: 'Wrapped Ether',
+        symbol: 'WETH',
+      },
+      brick: {
+        name: 'Brick',
+        symbol: 'BRICK',
+      },
+      sbrick: {
+        name: 'Staked Brick',
+        symbol: 'sBRICK',
+      },
+      wsbrick: {
+        name: 'Wrapped sBRICK',
+        symbol: 'wsBRICK',
+      },
     },
     '4002': {
       blocksNeededForQueue: 0,
       epochLength: 28800, // seconds
+      wrappedToken: {
+        name: 'Wrapped Fantom',
+        symbol: 'WFTM',
+      },
+      brick: {
+        name: 'fBrick',
+        symbol: 'fBRICK',
+      },
+      sbrick: {
+        name: 'Staked fBrick',
+        symbol: 'sfBRICK',
+      },
+      wsbrick: {
+        name: 'Wrapped sfBRICK',
+        symbol: 'wsfBRICK',
+      },
     },
     '31337': {
       blocksNeededForQueue: 0,
       epochLength: 28800, // seconds
+      wrappedToken: {
+        name: 'Wrapped Ether',
+        symbol: 'WETH',
+      },
+      brick: {
+        name: 'Brick',
+        symbol: 'BRICK',
+      },
+      sbrick: {
+        name: 'Staked Brick',
+        symbol: 'sBRICK',
+      },
+      wsbrick: {
+        name: 'Wrapped sBRICK',
+        symbol: 'wsBRICK',
+      },
     },
   },
   contractAddresses: {
@@ -52,6 +128,10 @@ module.exports = {
       frax: '0xaf319E5789945197e365E7f7fbFc56B130523B33',
       wrappedToken: '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83', // WFTM
       priceFeed: '0xf4766552D15AE4d256Ad41B6cf2933482B0680dc',
+    },
+    '4': {
+      dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address
+      priceFeed: '0x8A753747A1Fa494EC906cE90E9f37563A8AF630e',
     },
     '4002': {
       dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address

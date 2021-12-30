@@ -34,11 +34,11 @@ async function main() {
     ).attach(fraxBondDepositoryAddress);
     await fraxBondDepository.pushManagement(multisig);
 
-    const wftmBondDepositoryAddress = (await get('WftmBondDepository')).address;
-    const wftmBondDepository = (
+    const wrappedTokenBondDepositoryAddress = (await get('WrappedTokenBondDepository')).address;
+    const wrappedTokenBondDepository = (
       await ethers.getContractFactory('contracts/wETHBondDepository.sol:OlympusBondDepository')
-    ).attach(wftmBondDepositoryAddress);
-    await wftmBondDepository.pushManagement(multisig);
+    ).attach(wrappedTokenBondDepositoryAddress);
+    await wrappedTokenBondDepository.pushManagement(multisig);
 
     const stakingAddress = (await get('OlympusStaking')).address;
     const staking = (
