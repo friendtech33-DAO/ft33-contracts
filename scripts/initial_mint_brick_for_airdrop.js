@@ -14,10 +14,10 @@ async function main() {
   ).attach(treasuryAddress);
 
   // TODO: decide how much to mint and how much is profit
-  // const transferAmount = ethers.utils.parseUnits('1000000', 18);
-  // const profit = ethers.utils.parseUnits('500000', 9);
-  const transferAmount = 0;
-  const profit = 0;
+  const transferAmount = ethers.utils.parseUnits('1000000', 18);
+  const profit = ethers.utils.parseUnits('500000', 9);
+  // const transferAmount = 0;
+  // const profit = 0;
   await frax.approve(treasury.address, transferAmount);
   await treasury.deposit(transferAmount, fraxAddress, profit);
 
