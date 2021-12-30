@@ -34,13 +34,19 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     await ethers.getContractFactory('OlympusTreasury')
   ).attach(treasuryArtifact.address);
   // NOTE: Grant Wrapped Token bond depositor a reserve depositor role
-  await treasury.queue('0', deployment.address);
+  const reserveDepositorQueueTimestamp = await treasury.reserveDepositorQueue(deployment.address);
+  if (reserveDepositorQueueTimestamp.eq(0)) {
+    await treasury.queue('0', deployment.address);
+  }
 
   const wrappedTokenBond = (await ethers.getContractFactory(contractPath)).attach(deployment.address);
 
   // // NOTE: Use staking helper.
-  const stakingHelperArtifact = await get('StakingHelper');
-  await wrappedTokenBond.setStaking(stakingHelperArtifact.address, true);
+  const currentStakingHelper = await wrappedTokenBond.stakingHelper();
+  if (currentStakingHelper === config.contractAddresses.zero) {
+    const stakingHelperArtifact = await get('StakingHelper');
+    await wrappedTokenBond.setStaking(stakingHelperArtifact.address, true);
+  }
 
   // TODO: Just copying params from
   // https://etherscan.io/tx/0x89e196f369a21994d863a2f4aaa0ea7fb0970418b98435dcf5efa87c2d5f66b4 (OlympusDAO: ETH Bond V2 initializeBondTerms)
@@ -59,15 +65,21 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const initialBondDebt = 0;
 
   // NOTE: this needs to be set twice to avoid division by 0 error.
-  await wrappedTokenBond.setBondTerms('0', bondVestingLength);
+  const currentTerms = await wrappedTokenBond.terms();
 
-  await wrappedTokenBond.initializeBondTerms(
-    bondBcv,
-    bondVestingLength,
-    minBondPrice,
-    maxBondPayout,
-    maxBondDebt,
-    initialBondDebt,
-  );
+  if (currentTerms.vestingTerm.eq(0)) {
+    await wrappedTokenBond.setBondTerms('0', bondVestingLength);
+  }
+
+  if (currentTerms.controlVariable.eq(0)) {
+    await wrappedTokenBond.initializeBondTerms(
+      bondBcv,
+      bondVestingLength,
+      minBondPrice,
+      maxBondPayout,
+      maxBondDebt,
+      initialBondDebt,
+    );
+  }
 };
-module.exports.tags = ['BondDepository', 'AllEnvironments'];
+module.exports.tags = ['WrappedTokenBondDepository', 'AllEnvironments'];

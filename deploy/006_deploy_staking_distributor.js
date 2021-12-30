@@ -31,6 +31,9 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     await ethers.getContractFactory('OlympusTreasury')
   ).attach(treasuryArtifact.address);
   // NOTE: 8 is REWARDMANAGER
-  await treasury.queue('8', deployment.address);
+  const rewardManagerQueueTimestamp = await treasury.rewardManagerQueue(deployer);
+  if (rewardManagerQueueTimestamp.eq(0)) {
+    await treasury.queue('8', deployment.address);
+  }
 };
 module.exports.tags = ['StakingDistributor', 'AllEnvironments'];

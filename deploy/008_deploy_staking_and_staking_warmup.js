@@ -46,11 +46,24 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     await ethers.getContractFactory('OlympusStaking')
   ).attach(stakingDeployment.address);
 
-  await staking.setContract('0', distributorArtifact.address);
-  await staking.setContract('1', stakingWarmupDeployment.address);
+  const zeroAddress = config.contractAddresses.zero;
 
-  // TODO: confirm with the team, this is 0.3% per epoch
-  const initialRewardRate = 3000;
-  await distributor.addRecipient(stakingDeployment.address, initialRewardRate);
+  const currentDistributor = await staking.distributor();
+  if (currentDistributor === zeroAddress) {
+    await staking.setContract('0', distributorArtifact.address);
+  }
+  const currentWarmupContract = await staking.warmupContract();
+  if (currentWarmupContract === zeroAddress) {
+    await staking.setContract('1', stakingWarmupDeployment.address);
+  }
+
+  try {
+    await distributor.info(0);
+  } catch {
+    // NOTE: No recipient, can safely add
+    // TODO: confirm with the team, this is 0.3% per epoch
+    const initialRewardRate = 3000;
+    await distributor.addRecipient(stakingDeployment.address, initialRewardRate);
+  }
 };
 module.exports.tags = ['Staking', 'AllEnvironments'];

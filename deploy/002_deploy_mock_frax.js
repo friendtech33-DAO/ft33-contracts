@@ -15,7 +15,10 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const fraxFactory = await ethers.getContractFactory('FRAX');
     const frax = fraxFactory.attach(deployment.address);
     const initialMint = ethers.utils.parseEther('10000000');
-    await frax.mint(deployer, initialMint);
+    const deployerBalance = await frax.balanceOf(deployer);
+    if (deployerBalance.eq(0)) {
+      await frax.mint(deployer, initialMint);
+    }
   }
 };
 module.exports.tags = ['Frax', 'TestingOnly'];

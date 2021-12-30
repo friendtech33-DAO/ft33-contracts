@@ -14,4 +14,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log: true,
   });
 };
-module.exports.tags = ['Staking', 'AllEnvironments'];
+module.exports.tags = ['StakingHelper', 'AllEnvironments'];

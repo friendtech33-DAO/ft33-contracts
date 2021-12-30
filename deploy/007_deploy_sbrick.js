@@ -18,6 +18,9 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     await ethers.getContractFactory('OlympusTreasury')
   ).attach(treasuryAddress);
   // NOTE: set sBRICK
-  await treasury.queue('9', deployment.address);
+  const sBrickQueue = await treasury.sOHMQueue();
+  if (sBrickQueue.eq(0)) {
+    await treasury.queue('9', deployment.address);
+  }
 };
 module.exports.tags = ['sBRICK', 'AllEnvironments'];
