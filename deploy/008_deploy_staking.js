@@ -20,7 +20,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   // NOTE: ok so it has to be at least 1, otherwise claim doesn't work.
   const firstEpochNumber = 1;
 
-  const stakingDeployment = await deploy('OlympusStaking', {
+  await deploy('OlympusStaking', {
     from: deployer,
     args: [
       brickArtifact.address,
@@ -32,38 +32,5 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     ],
     log: true,
   });
-
-  const stakingWarmupDeployment = await deploy('StakingWarmup', {
-    from: deployer,
-    args: [
-      stakingDeployment.address,
-      sBrickArtifact.address,
-    ],
-    log: true,
-  });
-
-  const staking = (
-    await ethers.getContractFactory('OlympusStaking')
-  ).attach(stakingDeployment.address);
-
-  const zeroAddress = config.contractAddresses.zero;
-
-  const currentDistributor = await staking.distributor();
-  if (currentDistributor === zeroAddress) {
-    await staking.setContract('0', distributorArtifact.address);
-  }
-  const currentWarmupContract = await staking.warmupContract();
-  if (currentWarmupContract === zeroAddress) {
-    await staking.setContract('1', stakingWarmupDeployment.address);
-  }
-
-  try {
-    await distributor.info(0);
-  } catch {
-    // NOTE: No recipient, can safely add
-    // TODO: confirm with the team, this is 0.3% per epoch
-    const initialRewardRate = 3000;
-    await distributor.addRecipient(stakingDeployment.address, initialRewardRate);
-  }
 };
 module.exports.tags = ['Staking', 'AllEnvironments'];

@@ -15,7 +15,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const currentBlock = await ethers.provider.getBlock(currentBlockNumber);
   const nextEpochTime = currentBlock.timestamp + epochLength;
 
-  const deployment = await deploy('Distributor', {
+  await deploy('Distributor', {
     from: deployer,
     args: [
       treasuryArtifact.address,
@@ -25,15 +25,5 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     ],
     log: true,
   });
-
-  // TODO: need to transfer policy role to another address.
-  const treasury = (
-    await ethers.getContractFactory('OlympusTreasury')
-  ).attach(treasuryArtifact.address);
-  // NOTE: 8 is REWARDMANAGER
-  const rewardManagerQueueTimestamp = await treasury.rewardManagerQueue(deployer);
-  if (rewardManagerQueueTimestamp.eq(0)) {
-    await treasury.queue('8', deployment.address);
-  }
 };
 module.exports.tags = ['StakingDistributor', 'AllEnvironments'];
