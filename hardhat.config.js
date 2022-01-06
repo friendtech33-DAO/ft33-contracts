@@ -136,6 +136,7 @@ module.exports = {
     '4002': {
       dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address
       priceFeed: '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D',
+      uniswapV2Factory: '0x25A52e80ABca73318d99fe8B5fbC19aBd5AA98FD', // SpiritSwap factory
     },
     '31337': {
       dao: '0x71Aa3467e12E2b562a0E792D831933998490C998',
