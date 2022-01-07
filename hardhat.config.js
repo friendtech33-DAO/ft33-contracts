@@ -132,11 +132,14 @@ module.exports = {
     '4': {
       dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address
       priceFeed: '0x8A753747A1Fa494EC906cE90E9f37563A8AF630e',
+      uniswapV2Factory: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', // Uniswap V2 factory
+      uniswapV2Router: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', // Uniswap V2 router
     },
     '4002': {
       dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address
       priceFeed: '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D',
       uniswapV2Factory: '0x25A52e80ABca73318d99fe8B5fbC19aBd5AA98FD', // SpiritSwap factory
+      uniswapV2Router: '0x2a03c4B4130C4Db5D3ad2515DE99b62Ba57A6917', // SpiritSwap router
     },
     '31337': {
       dao: '0x71Aa3467e12E2b562a0E792D831933998490C998',

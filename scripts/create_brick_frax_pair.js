@@ -2,9 +2,6 @@ const { ethers, deployments: { get }, getChainId, config } = require("hardhat");
 const IUniswapV2Factory = require("../abis/IUniswapV2Factory.json");
 
 async function main() {
-    // TODO:
-    // 1. add liquidity to spiritswap to create a BRICK-FRAX pool
-    // 2. whitelist BRICK-FRAX pool in Treasury, deploy BRICK-FRAX bond depository, initialize bond terms
     const chainId = await getChainId();
 
     // restrict this to FTM testnet for now
