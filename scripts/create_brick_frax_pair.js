@@ -1,5 +1,5 @@
 const { ethers, deployments: { get }, getChainId, config } = require("hardhat");
-const uniswapV2FactoryAbi = require("../abis/UniswapV2Factory.json");
+const IUniswapV2Factory = require("../abis/IUniswapV2Factory.json");
 
 async function main() {
     // TODO:
@@ -22,7 +22,7 @@ async function main() {
 
     const uniswapV2Factory = new ethers.Contract(
         config.contractAddresses[chainId].uniswapV2Factory,
-        uniswapV2FactoryAbi,
+        IUniswapV2Factory,
         provider
     );
 
