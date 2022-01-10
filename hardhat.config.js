@@ -6,7 +6,7 @@ require("dotenv").config();
 const {
   MAINNET_PRIVATE_KEY,
   TESTNET_PRIVATE_KEY,
-  FTMSCAN_API_KEY,
+  ETHERSCAN_API_KEY,
   RINKEBY_ALCHEMY_API,
 } = process.env;
 
@@ -134,6 +134,7 @@ module.exports = {
       priceFeed: '0x8A753747A1Fa494EC906cE90E9f37563A8AF630e',
       uniswapV2Factory: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', // Uniswap V2 factory
       uniswapV2Router: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', // Uniswap V2 router
+      brickFraxUniswapV2Pair: '0x088ce658Db1AB9e8B0BD62d75964Ac8f88f27aeA',
     },
     '4002': {
       dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address
@@ -148,6 +149,6 @@ module.exports = {
     zero: '0x0000000000000000000000000000000000000000',
   },
   etherscan: {
-    apiKey: FTMSCAN_API_KEY,
+    apiKey: ETHERSCAN_API_KEY,
   },
 };
