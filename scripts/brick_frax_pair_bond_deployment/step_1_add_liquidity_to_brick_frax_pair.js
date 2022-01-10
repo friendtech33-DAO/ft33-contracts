@@ -29,14 +29,17 @@ async function main() {
         provider
     );
 
-    const amountBrickDesired = ethers.utils.parseUnits('10', 9);
-    const amountFraxDesired = ethers.utils.parseUnits('40', 18);
+    const amountBrickDesired = ethers.utils.parseUnits('10000', 9);
+    const amountFraxDesired = ethers.utils.parseUnits('40000', 18);
 
     const brick = (await ethers.getContractFactory("OlympusERC20Token")).attach(brickArtifact.address);
     const frax = (await ethers.getContractFactory("FRAX")).attach(fraxArtifact.address);
 
-    await brick.connect(deployer).approve(routerAddress, amountBrickDesired);
-    await frax.connect(deployer).approve(routerAddress, amountFraxDesired);
+    const brickApproval = await brick.connect(deployer).approve(routerAddress, amountBrickDesired);
+    const fraxApproval = await frax.connect(deployer).approve(routerAddress, amountFraxDesired);
+
+    await brickApproval.wait();
+    await fraxApproval.wait();
 
     // 20 minutes from now
     const deadline = Math.round((+new Date() / 1000) + 20 * 60);
