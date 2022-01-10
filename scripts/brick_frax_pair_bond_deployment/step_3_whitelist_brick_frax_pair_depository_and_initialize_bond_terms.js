@@ -3,7 +3,7 @@ const { config, ethers, deployments: { get } } = require("hardhat");
 async function main() {
     const treasuryArtifact = await get('OlympusTreasury');
     const stakingHelperArtifact = await get('StakingHelper');
-    const brickFraxBondDepositoryArtifact = await get('BrickFraxBondDepository');
+    const bondDepositoryArtifact = await get('BrickFraxBondDepository');
 
     const treasury = (
       await ethers.getContractFactory('OlympusTreasury')
@@ -11,47 +11,47 @@ async function main() {
 
     // Set BRICK-FRAX bond terms
     // NOTE: Grant BRICK-FRAX bond depositor a liquidity depositor role
-    const liquidityDepositorQueueTimestamp = await treasury.LiquidityDepositorQueue(brickFraxBondDepositoryArtifact.address);
+    const liquidityDepositorQueueTimestamp = await treasury.LiquidityDepositorQueue(bondDepositoryArtifact.address);
     if (liquidityDepositorQueueTimestamp.eq(0)) {
-      await treasury.queue('4', brickFraxBondDepositoryArtifact.address);
+      await treasury.queue('4', bondDepositoryArtifact.address);
     }
 
-    const brickFraxBond = (
+    const bond = (
       await ethers.getContractFactory('contracts/BondDepository.sol:OlympusBondDepository')
-    ).attach(brickFraxBondDepositoryArtifact.address);
+    ).attach(bondDepositoryArtifact.address);
 
     // NOTE: Use staking helper.
-    const currentStakingHelper = await brickFraxBond.stakingHelper();
+    const currentStakingHelper = await bond.stakingHelper();
     if (currentStakingHelper === config.contractAddresses.zero) {
-      await brickFraxBond.setStaking(stakingHelperArtifact.address, true);
+      await bond.setStaking(stakingHelperArtifact.address, true);
     }
 
     // TODO: Just copying params from
-    // https://etherscan.io/tx/0xc83d9c015dcc177284a919d7ac5a53e3bf8788ff9e940b294b58150c53674e17 (Frax V1 bonds initializeBondTerms)
+    // https://etherscan.io/tx/0xe2dcf8abc6aabb9ff877442b0727165b05c300e0e4dae1b1890c242c222916ff
     // for now. Need to adjust at least bondVestingLength, minBondPrice, maxBondPayout.
-    const brickFraxBondBCV = 300;
+    const bondBCV = 285;
 
     // 5 days
     const bondVestingLength = 432000;
-    const minBrickFraxBondPrice = 29000;
+    const minBondPrice = 1600;
     // 0.05% of BRICK supply
-    const maxBrickFraxBondPayout = 50
+    const maxBondPayout = 50;
 
     // bonding fee given to the DAO (100%)
     const bondFee = 10000;
 
-    const maxBrickFraxBondDebt = ethers.utils.parseUnits('700000', 9);
+    const maxBondDebt = ethers.utils.parseUnits('700000', 9);
     const initialBondDebt = 0;
 
-    const currentTerms = await brickFraxBond.terms();
+    const currentTerms = await bond.terms();
     if (currentTerms.controlVariable.eq(0)) {
-      await brickFraxBond.initializeBondTerms(
-        brickFraxBondBCV,
+      await bond.initializeBondTerms(
+        bondBCV,
         bondVestingLength,
-        minBrickFraxBondPrice,
-        maxBrickFraxBondPayout,
+        minBondPrice,
+        maxBondPayout,
         bondFee,
-        maxBrickFraxBondDebt,
+        maxBondDebt,
         initialBondDebt,
       );
     }

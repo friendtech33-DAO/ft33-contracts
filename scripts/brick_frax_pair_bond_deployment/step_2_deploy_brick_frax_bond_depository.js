@@ -21,7 +21,7 @@ async function main() {
     // NOTE: https://hardhat.org/guides/compile-contracts.html#reading-artifacts
     const contractPath = 'contracts/BondDepository.sol:OlympusBondDepository';
 
-    await deploy('BrickFraxBondDepository', {
+    const deployment = await deploy('BrickFraxBondDepository', {
         contract: contractPath,
         from: deployer,
         args: [
@@ -33,6 +33,8 @@ async function main() {
         ],
         log: true,
     });
+
+    console.log(`Deployed to ${deployment.address}`);
 }
 
 main()
