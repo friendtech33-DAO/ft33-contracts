@@ -1,6 +1,12 @@
-const { config, ethers, deployments: { get } } = require("hardhat");
+const { config, ethers, deployments: { get }, getChainId } = require("hardhat");
 
 async function main() {
+    const chainId = await getChainId();
+    // restrict this to testnets for now
+    if (['4', '4002'].indexOf(chainId) === -1) {
+        throw new Error('This can only be done on testnets!');
+    }
+
     const treasuryArtifact = await get('OlympusTreasury');
     const stakingHelperArtifact = await get('StakingHelper');
     const bondDepositoryArtifact = await get('BrickFraxBondDepository');
@@ -14,6 +20,13 @@ async function main() {
     const liquidityDepositorQueueTimestamp = await treasury.LiquidityDepositorQueue(bondDepositoryArtifact.address);
     if (liquidityDepositorQueueTimestamp.eq(0)) {
       await treasury.queue('4', bondDepositoryArtifact.address);
+    }
+
+    const { brickFraxUniswapV2Pair } = config.contractAddresses[chainId];
+
+    const liquidityTokenQueueTimestamp = await treasury.LiquidityTokenQueue(brickFraxUniswapV2Pair);
+    if (liquidityTokenQueueTimestamp.eq(0)) {
+      await treasury.queue('5', brickFraxUniswapV2Pair);
     }
 
     const bond = (
