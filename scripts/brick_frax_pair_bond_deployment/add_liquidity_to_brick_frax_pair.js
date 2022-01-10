@@ -1,5 +1,5 @@
 const { ethers, deployments: { get }, getChainId, config } = require("hardhat");
-const IUniswapV2Router02 = require("../abis/IUniswapV2Router02.json");
+const IUniswapV2Router02 = require("../../abis/IUniswapV2Router02.json");
 
 async function main() {
     // TODO:

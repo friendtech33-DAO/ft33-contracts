@@ -1,5 +1,5 @@
 const { ethers, deployments: { get }, getChainId, config } = require("hardhat");
-const IUniswapV2Factory = require("../abis/IUniswapV2Factory.json");
+const IUniswapV2Factory = require("../../abis/IUniswapV2Factory.json");
 
 async function main() {
     const chainId = await getChainId();
