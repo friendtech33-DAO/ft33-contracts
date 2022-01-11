@@ -15,7 +15,7 @@ async function main() {
       await ethers.getContractFactory('@openzeppelin/contracts/token/ERC20/ERC20.sol:ERC20')
     ).attach(brickFraxUniswapV2Pair);
 
-    const bondAmount = await uniswapV2Pair.balanceOf(deployer);
+    const bondAmount = (await uniswapV2Pair.balanceOf(deployer)).div(100);
     const terms = await bondDepository.terms();
     const minimumPrice = terms.minimumPrice;
 
