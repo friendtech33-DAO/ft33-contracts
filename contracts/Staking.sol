@@ -617,7 +617,7 @@ contract OlympusStaking is Ownable {
         @notice retrieve sOHM from warmup
         @param _recipient address
      */
-    function claim ( address _recipient ) public {
+    function claim ( address _recipient ) external {
         Claim memory info = warmupInfo[ _recipient ];
         if ( epoch.number >= info.expiry && info.expiry != 0 ) {
             delete warmupInfo[ _recipient ];
