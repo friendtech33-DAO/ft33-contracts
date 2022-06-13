@@ -641,7 +641,7 @@ contract OlympusBondDepository is Ownable {
     mapping( address => Bond ) public bondInfo; // stores bond information for depositors
 
     uint public totalDebt; // total value of outstanding bonds; used for pricing
-    uint public lastDecay; // reference block for debt decay
+    uint public lastDecay; // reference block timestamp for debt decay
 
 
 
@@ -651,7 +651,7 @@ contract OlympusBondDepository is Ownable {
     // Info for creating new bonds
     struct Terms {
         uint controlVariable; // scaling variable for price
-        uint vestingTerm; // in blocks
+        uint vestingTerm; // in seconds
         uint minimumPrice; // vs principle value
         uint maxPayout; // in thousandths of a %. i.e. 500 = 0.5%
         uint fee; // as % of bond payout, in hundreths. ( 500 = 5% = 0.05 for every 1 paid)
@@ -662,17 +662,17 @@ contract OlympusBondDepository is Ownable {
     struct Bond {
         uint payout; // OHM remaining to be paid
         uint vesting; // Blocks left to vest
-        uint lastBlock; // Last interaction
+        uint lastTime; // Last interaction
         uint pricePaid; // In DAI, for front end viewing
     }
 
-    // Info for incremental adjustments to control variable 
+    // Info for incremental adjustments to control variable
     struct Adjust {
         bool add; // addition or subtraction
         uint rate; // increment
         uint target; // BCV when adjustment finished
-        uint buffer; // minimum length (in blocks) between adjustments
-        uint lastBlock; // block when last adjustment made
+        uint buffer; // minimum length (in seconds) between adjustments
+        uint lastTime; // time when last adjustment made
     }
 
 
@@ -729,12 +729,12 @@ contract OlympusBondDepository is Ownable {
             maxDebt: _maxDebt
         });
         totalDebt = _initialDebt;
-        lastDecay = block.number;
+        lastDecay = block.timestamp;
     }
 
 
 
-    
+
     /* ======== POLICY FUNCTIONS ======== */
 
     enum PARAMETER { VESTING, PAYOUT, FEE, DEBT }
@@ -745,7 +745,7 @@ contract OlympusBondDepository is Ownable {
      */
     function setBondTerms ( PARAMETER _parameter, uint _input ) external onlyPolicy() {
         if ( _parameter == PARAMETER.VESTING ) { // 0
-            require( _input >= 10000, "Vesting must be longer than 36 hours" );
+            require( _input >= 129600, "Vesting must be longer than 36 hours" );
             terms.vestingTerm = _input;
         } else if ( _parameter == PARAMETER.PAYOUT ) { // 1
             require( _input <= 1000, "Payout cannot be above 1 percent" );
@@ -778,7 +778,7 @@ contract OlympusBondDepository is Ownable {
             rate: _increment,
             target: _target,
             buffer: _buffer,
-            lastBlock: block.number
+            lastTime: block.timestamp
         });
     }
 
@@ -855,12 +855,12 @@ contract OlympusBondDepository is Ownable {
         bondInfo[ _depositor ] = Bond({ 
             payout: bondInfo[ _depositor ].payout.add( payout ),
             vesting: terms.vestingTerm,
-            lastBlock: block.number,
+            lastTime: block.timestamp,
             pricePaid: priceInUSD
         });
 
         // indexed events are emitted
-        emit BondCreated( _amount, payout, block.number.add( terms.vestingTerm ), priceInUSD );
+        emit BondCreated( _amount, payout, block.timestamp.add( terms.vestingTerm ), priceInUSD );
         emit BondPriceChanged( bondPriceInUSD(), _bondPrice(), debtRatio() );
 
         adjust(); // control variable is adjusted
@@ -889,8 +889,8 @@ contract OlympusBondDepository is Ownable {
             // store updated deposit info
             bondInfo[ _recipient ] = Bond({
                 payout: info.payout.sub( payout ),
-                vesting: info.vesting.sub( block.number.sub( info.lastBlock ) ),
-                lastBlock: block.number,
+                vesting: info.vesting.sub( block.timestamp.sub( info.lastTime ) ),
+                lastTime: block.timestamp,
                 pricePaid: info.pricePaid
             });
 
@@ -929,8 +929,8 @@ contract OlympusBondDepository is Ownable {
      *  @notice makes incremental adjustment to control variable
      */
     function adjust() internal {
-        uint blockCanAdjust = adjustment.lastBlock.add( adjustment.buffer );
-        if( adjustment.rate != 0 && block.number >= blockCanAdjust ) {
+        uint timeCanAdjust = adjustment.lastTime.add( adjustment.buffer );
+        if( adjustment.rate != 0 && block.timestamp >= timeCanAdjust ) {
             uint initial = terms.controlVariable;
             if ( adjustment.add ) {
                 terms.controlVariable = terms.controlVariable.add( adjustment.rate );
@@ -943,7 +943,7 @@ contract OlympusBondDepository is Ownable {
                     adjustment.rate = 0;
                 }
             }
-            adjustment.lastBlock = block.number;
+            adjustment.lastTime = block.timestamp;
             emit ControlVariableAdjustment( initial, terms.controlVariable, adjustment.rate, adjustment.add );
         }
     }
@@ -953,7 +953,7 @@ contract OlympusBondDepository is Ownable {
      */
     function decayDebt() internal {
         totalDebt = totalDebt.sub( debtDecay() );
-        lastDecay = block.number;
+        lastDecay = block.timestamp;
     }
 
 
@@ -1053,8 +1053,8 @@ contract OlympusBondDepository is Ownable {
      *  @return decay_ uint
      */
     function debtDecay() public view returns ( uint decay_ ) {
-        uint blocksSinceLast = block.number.sub( lastDecay );
-        decay_ = totalDebt.mul( blocksSinceLast ).div( terms.vestingTerm );
+        uint timeSinceLast = block.timestamp.sub( lastDecay );
+        decay_ = totalDebt.mul( timeSinceLast ).div( terms.vestingTerm );
         if ( decay_ > totalDebt ) {
             decay_ = totalDebt;
         }
@@ -1068,11 +1068,11 @@ contract OlympusBondDepository is Ownable {
      */
     function percentVestedFor( address _depositor ) public view returns ( uint percentVested_ ) {
         Bond memory bond = bondInfo[ _depositor ];
-        uint blocksSinceLast = block.number.sub( bond.lastBlock );
+        uint secondsSinceLast = block.timestamp.sub( bond.lastTime );
         uint vesting = bond.vesting;
 
         if ( vesting > 0 ) {
-            percentVested_ = blocksSinceLast.mul( 10000 ).div( vesting );
+            percentVested_ = secondsSinceLast.mul( 10000 ).div( vesting );
         } else {
             percentVested_ = 0;
         }

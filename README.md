@@ -48,11 +48,11 @@ Local Setup Steps:
 - **_TODO_**: What are the requirements for creating a Bond Contract?
 All LP bonds use the Bonding Calculator contract which is used to compute RFV. 
 
-|Contract       | Addresss                                                                                                            | Notes   |
+|Contract       | Addresses                                                                                                            | Notes   |
 |:-------------:|:-------------------------------------------------------------------------------------------------------------------:|-------|
 |Bond Calculator|[0xcaaA6a2d4B26067a391E7B7D65C16bb2d5FA571A](https://etherscan.io/address/0xcaaA6a2d4B26067a391E7B7D65C16bb2d5FA571A)| |
 |DAI bond|[0x575409F8d77c12B05feD8B455815f0e54797381c](https://etherscan.io/address/0x575409F8d77c12B05feD8B455815f0e54797381c)| Main bond managing serve mechanics for OHM/DAI|
-|DAI/OHM SLP Bond|[0x956c43998316b6a2F21f89a1539f73fB5B78c151](https://etherscan.io/address/0x956c43998316b6a2F21f89a1539f73fB5B78c151)| Manages mechhanism for thhe protocol to buy baack its own liquidity from the pair. |
+|DAI/OHM SLP Bond|[0x956c43998316b6a2F21f89a1539f73fB5B78c151](https://etherscan.io/address/0x956c43998316b6a2F21f89a1539f73fB5B78c151)| Manages mechanism for the protocol to buy back its own liquidity from the pair. |
 |FRAX Bond|[0x8510c8c2B6891E04864fa196693D44E6B6ec2514](https://etherscan.io/address/0x8510c8c2B6891E04864fa196693D44E6B6ec2514)|Similar to DAI bond but using FRAX|
 |FRAX/OHM SLP Bond|[0xc20CffF07076858a7e642E396180EC390E5A02f7](https://etherscan.io/address/0xc20CffF07076858a7e642E396180EC390E5A02f7)| Similar to DAI/OHM but using FRAX |
 
