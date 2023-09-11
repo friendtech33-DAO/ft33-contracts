@@ -8,6 +8,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
     const deployment = await deploy('FRAX', {
       from: deployer,
+      skip: true,
       args: [Number(chainId)],
       log: true,
     });

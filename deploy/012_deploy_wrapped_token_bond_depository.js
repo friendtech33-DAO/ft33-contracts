@@ -12,7 +12,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const daoAddress = config.contractAddresses[chainId].dao;
   const priceFeedAddress = config.contractAddresses[chainId].priceFeed;
 
-  const wrappedTokenAddress = await getTokenAddress({ chainId, tokenName: 'wrappedToken', get });
+  // const wrappedTokenAddress = await getTokenAddress({ chainId, tokenName: 'wrappedToken', get });
+  const wrappedTokenAddress = '0x4200000000000000000000000000000000000006';
 
   // NOTE: https://hardhat.org/guides/compile-contracts.html#reading-artifacts
   const contractPath = 'contracts/wETHBondDepository.sol:OlympusBondDepository';

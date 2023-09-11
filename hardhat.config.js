@@ -3,11 +3,12 @@ require("hardhat-deploy");
 require("@nomiclabs/hardhat-etherscan");
 
 require("dotenv").config();
+// console.log(process.env)
 const {
   MAINNET_PRIVATE_KEY,
   TESTNET_PRIVATE_KEY,
   ETHERSCAN_API_KEY,
-  RINKEBY_ALCHEMY_API,
+  MAINNET_ALCHEMY_API,
 } = process.env;
 
 module.exports = {
@@ -25,20 +26,19 @@ module.exports = {
         MAINNET_PRIVATE_KEY,
       ]
     },
-    rinkeby: {
-      chainId: 4,
-      url: RINKEBY_ALCHEMY_API,
+    base: {
+      chainId: 8453,
+      url: MAINNET_ALCHEMY_API,
       accounts: [
-        TESTNET_PRIVATE_KEY,
+        MAINNET_PRIVATE_KEY,
       ],
-    },
-    ftmTestnet: {
-      chainId: 4002,
-      url: "https://rpc.testnet.fantom.network",
-      accounts: [
-        TESTNET_PRIVATE_KEY,
-      ],
-    },
+      verify: {
+        etherscan: {
+          apiKey: '5JGRDZGJ2875NQD5Q2RIJ82MZNPP3FGNHB',
+          apiUrl: 'https://api.basescan.org/'
+        }
+      }
+    }
   },
   protocolParameters: {
     '250': {
@@ -61,7 +61,7 @@ module.exports = {
         symbol: 'wsfBRICK',
       },
     },
-    '4': {
+    '8453': {
       blocksNeededForQueue: 0,
       epochLength: 28800, // seconds
       wrappedToken: {
@@ -69,16 +69,16 @@ module.exports = {
         symbol: 'WETH',
       },
       brick: {
-        name: 'Brick',
-        symbol: 'BRICK',
+        name: 'FriendTech33',
+        symbol: 'FTW',
       },
       sbrick: {
-        name: 'Staked Brick',
-        symbol: 'sBRICK',
+        name: 'Staked FTW',
+        symbol: 'sFTW',
       },
       wsbrick: {
-        name: 'Wrapped sBRICK',
-        symbol: 'wsBRICK',
+        name: 'Wrapped sFTW',
+        symbol: 'wsFTW',
       },
     },
     '4002': {
@@ -129,12 +129,14 @@ module.exports = {
       wrappedToken: '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83', // WFTM
       priceFeed: '0xf4766552D15AE4d256Ad41B6cf2933482B0680dc',
     },
-    '4': {
-      dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address
+    '8453': {
+      dao: '0xBbE6d178d6E11189B46ff4A9f034AB198C2E8A0f', // base ft33 safe address
       priceFeed: '0x8A753747A1Fa494EC906cE90E9f37563A8AF630e',
-      uniswapV2Factory: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', // Uniswap V2 factory
-      uniswapV2Router: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', // Uniswap V2 router
-      brickFraxUniswapV2Pair: '0x088ce658Db1AB9e8B0BD62d75964Ac8f88f27aeA',
+      frax: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
+      uniswapV2Factory: '0xE11b93B61f6291d35c5a2beA0A9fF169080160cF', // Velocimeter base pair factory
+      wrappedToken: '0x4200000000000000000000000000000000000006', // WETH on base
+      uniswapV2Router: '0xE11b93B61f6291d35c5a2beA0A9fF169080160cF', // Velocimeter base router
+     // brickFraxUniswapV2Pair: '0x088ce658Db1AB9e8B0BD62d75964Ac8f88f27aeA',
     },
     '4002': {
       dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address

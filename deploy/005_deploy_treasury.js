@@ -8,9 +8,10 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   const brickArtifact = await get('OlympusERC20Token');
 
-  const fraxAddress = await getTokenAddress({ chainId, tokenName: 'frax', get });
-  const wrappedTokenAddress = await getTokenAddress({ chainId, tokenName: 'wrappedToken', get });
-
+  //   const fraxAddress = await getTokenAddress({ chainId, tokenName: 'frax', get });
+    const fraxAddress = '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
+ // const wrappedTokenAddress = await getTokenAddress({ chainId, tokenName: 'wrappedToken', get });
+ const wrappedTokenAddress = '0x4200000000000000000000000000000000000006';
   const blocksNeededForQueue = config.protocolParameters[chainId].blocksNeededForQueue;
 
   await deploy('OlympusTreasury', {

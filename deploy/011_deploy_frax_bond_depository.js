@@ -13,7 +13,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   // NOTE: Only LP bond requires bond calculator
   const bondCalculatorAddress = config.contractAddresses.zero;
 
-  const fraxAddress = await getTokenAddress({ chainId, tokenName: 'frax', get });
+  //const fraxAddress = await getTokenAddress({ chainId, tokenName: 'frax', get });
+  const fraxAddress = '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
 
   // NOTE: https://hardhat.org/guides/compile-contracts.html#reading-artifacts
   const contractPath = 'contracts/BondDepository.sol:OlympusBondDepository';
