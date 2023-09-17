@@ -133,10 +133,10 @@ module.exports = {
       dao: '0xBbE6d178d6E11189B46ff4A9f034AB198C2E8A0f', // base ft33 safe address
       priceFeed: '0x8A753747A1Fa494EC906cE90E9f37563A8AF630e',
       frax: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
-      uniswapV2Factory: '0xE11b93B61f6291d35c5a2beA0A9fF169080160cF', // Velocimeter base pair factory
+      uniswapV2Factory: '0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB', // Velocimeter base pair factory but changed to baseswap for now
       wrappedToken: '0x4200000000000000000000000000000000000006', // WETH on base
-      uniswapV2Router: '0xE11b93B61f6291d35c5a2beA0A9fF169080160cF', // Velocimeter base router
-     // brickFraxUniswapV2Pair: '0x088ce658Db1AB9e8B0BD62d75964Ac8f88f27aeA',
+      uniswapV2Router: '0x327Df1E6de05895d2ab08513aaDD9313Fe505d86', // Velocimeter base router but changed to baseswap for now
+      brickFraxUniswapV2Pair: '0x3ce5f3633a9a84792391d058da153a7af145dbec',
     },
     '4002': {
       dao: '0xA38F4E6718EdCF023a1d032a2193848CB932c8e3', // testnet deployer address

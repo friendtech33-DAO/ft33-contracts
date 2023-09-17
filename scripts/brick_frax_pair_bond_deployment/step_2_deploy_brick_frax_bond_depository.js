@@ -5,9 +5,9 @@ async function main() {
     // whitelist BRICK-FRAX pool in Treasury, initialize bond terms
     const chainId = await getChainId();
     // restrict this to testnets for now
-    if (['4', '4002'].indexOf(chainId) === -1) {
-        throw new Error('This can only be done on testnets!');
-    }
+    // if (['4', '4002'].indexOf(chainId) === -1) {
+    //     throw new Error('This can only be done on testnets!');
+    // }
 
     const { deploy, get } = deployments;
     const { deployer } = await getNamedAccounts();
@@ -17,6 +17,7 @@ async function main() {
     // TODO: Setting DAO address to our Fantom multi-sig for now, not sure what to put yet.
     const { brickFraxUniswapV2Pair, dao } = config.contractAddresses[chainId];
     const bondCalculatorArtifact = await get('OlympusBondingCalculator');
+    
 
     // NOTE: https://hardhat.org/guides/compile-contracts.html#reading-artifacts
     const contractPath = 'contracts/BondDepository.sol:OlympusBondDepository';
@@ -28,7 +29,7 @@ async function main() {
             brickArtifact.address,
             brickFraxUniswapV2Pair,
             treasuryArtifact.address,
-            dao,
+            "0xBbE6d178d6E11189B46ff4A9f034AB198C2E8A0f", //dao 
             bondCalculatorArtifact.address,
         ],
         log: true,

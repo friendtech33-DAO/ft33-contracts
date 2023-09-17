@@ -14,8 +14,8 @@ async function main() {
   ).attach(treasuryAddress);
 
   // TODO: decide how much to mint and how much is profit
-  const transferAmount = ethers.utils.parseUnits('1000000', 18);
-  const profit = ethers.utils.parseUnits('500000', 9);
+  const transferAmount = ethers.utils.parseUnits('2', 6);
+  const profit = ethers.utils.parseUnits('1', 9);  // can we even mint 68000 like ohm did?
   // const transferAmount = 0;
   // const profit = 0;
   await frax.approve(treasury.address, transferAmount);
